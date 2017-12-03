@@ -5,6 +5,7 @@
 - Paste it in and execute Scheduling2.lua, or download it and run it locally. If you get an error like this `input:1: unexpected symbol near '#'`, delete the first line. (#!/usr/bin/luajit)
 - Change the value of processes, thickBoxes, justify, and algorithm as needed. (around line 607 in Scheduling2, and 334 in Scheduling at the time of writing)
 - Run it!
+- You may need to paste the output into notepad so the lines don't wrap.
 
 ### How to edit:
 - Don't bother editing Scheduling2. Scheduling2 is fraction.lua, minus the last line, then Scheduling is appended, minus the first 3 lines.
