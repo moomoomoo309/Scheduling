@@ -20,7 +20,7 @@ lines[#lines] = nil
 
 lineNum = 1
 for line in getDirIO({ "./Scheduling.lua", "./src/Scheduling.lua" }, "r"):lines() do
-    if lineNum > 1 then
+    if lineNum > 3 then
         lines[#lines + 1] = line
     end
     lineNum = lineNum + 1
