@@ -269,8 +269,6 @@ metatable = {
 }
 
 fraction = setmetatable(fraction, { __call = function(_, n, d, doNotSimplify) return fraction.new(n, d, doNotSimplify) end })
-
-local fraction = require "fraction"
 local processes, thickBoxes, justify
 
 --- Local function used by left and right pad. Returns the pad string needed.
