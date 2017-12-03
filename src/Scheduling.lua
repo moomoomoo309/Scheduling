@@ -339,9 +339,9 @@ processes = {
     { start = fraction(2), deadline = fraction(2), period = fraction(3), execution = fraction(1, 2) },
     { start = fraction(1), deadline = fraction(3), period = fraction(3), execution = fraction(1) },
 }
-thickBoxes = true
-justify = centerPadLeft
-local algorithm = earliestDeadlineFirst
+thickBoxes = true --Whether thick or thin lines should be used to draw the table.
+justify = centerPadLeft --Can be leftPad, rightPad, centerPadLeft, or centerPadRight.
+local algorithm = earliestDeadlineFirst --Can be either earliestDeadlineFirst or deadlineMonotonic, though more may be added.
 --You don't need to edit anything after this!
 
 local infeasible, feasible, test1Sum, test2Sum, sum1Terms, sum2Terms = feasibilityTests(processes)

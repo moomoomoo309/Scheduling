@@ -3,6 +3,11 @@
 local fraction = {}
 local metatable
 
+local integersSupported = tonumber(_VERSION:sub(-1)) >= 3 or tonumber(_VERSION:sub(-3,-3)) > 5
+local function intWrapper(num)
+    return integersSupported and math.tointeger(num) or num
+end
+
 --- Returns the Greatest Common Factor of the given operands.
 --- @tparam a number The first operand.
 --- @tparam b number The second operand.
@@ -220,7 +225,7 @@ end
 --- @treturn string Self as a string.
 function fraction:tostring()
     assert(type(self) == "table" and self.type == "fraction", ("Fraction expected, got %s."):format(type(self) == "table" and self.type or type(self)))
-    return self.n .. ((self.d ~= 1 and self.n ~= 0) and "/" .. self.d or "")
+    return intWrapper(self.n) .. ((self.d ~= 1 and self.n ~= 0) and "/" .. intWrapper(self.d) or "")
 end
 
 --- Returns if self and other are equal.

@@ -1,9 +1,13 @@
 #!/usr/bin/luajit
-
 --- Represents fractions. Uses exact values if possible, but error will exist in fractions made from floats.
 --- @class fraction
 local fraction = {}
 local metatable
+
+local integersSupported = tonumber(_VERSION:sub(-1)) >= 3 or tonumber(_VERSION:sub(-3,-3)) > 5
+local function intWrapper(num)
+    return integersSupported and math.tointeger(num) or num
+end
 
 --- Returns the Greatest Common Factor of the given operands.
 --- @tparam a number The first operand.
@@ -222,7 +226,7 @@ end
 --- @treturn string Self as a string.
 function fraction:tostring()
     assert(type(self) == "table" and self.type == "fraction", ("Fraction expected, got %s."):format(type(self) == "table" and self.type or type(self)))
-    return self.n .. ((self.d ~= 1 and self.n ~= 0) and "/" .. self.d or "")
+    return intWrapper(self.n) .. ((self.d ~= 1 and self.n ~= 0) and "/" .. intWrapper(self.d) or "")
 end
 
 --- Returns if self and other are equal.
@@ -266,8 +270,7 @@ metatable = {
 
 fraction = setmetatable(fraction, { __call = function(_, n, d, doNotSimplify) return fraction.new(n, d, doNotSimplify) end })
 
-
-
+local fraction = require "fraction"
 local processes, thickBoxes, justify
 
 --- Local function used by left and right pad. Returns the pad string needed.
@@ -606,9 +609,9 @@ processes = {
     { start = fraction(2), deadline = fraction(2), period = fraction(3), execution = fraction(1, 2) },
     { start = fraction(1), deadline = fraction(3), period = fraction(3), execution = fraction(1) },
 }
-thickBoxes = true
-justify = centerPadLeft
-local algorithm = earliestDeadlineFirst
+thickBoxes = true --Whether thick or thin lines should be used to draw the table.
+justify = centerPadLeft --Can be leftPad, rightPad, centerPadLeft, or centerPadRight.
+local algorithm = earliestDeadlineFirst --Can be either earliestDeadlineFirst or deadlineMonotonic, though more may be added.
 --You don't need to edit anything after this!
 
 local infeasible, feasible, test1Sum, test2Sum, sum1Terms, sum2Terms = feasibilityTests(processes)
